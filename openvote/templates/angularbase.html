@@ -43,8 +43,8 @@
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCy9qqGNDbHN_gtdFvQ6W25ydBD3D6scqk&sensor=false"></script>
     <script type="text/javascript">
         function locate() {
-            var lat = "{{ lat|escapejs }}";
-            var lon = "{{ lon|escapejs }}";
+            var lat = "{{ lat }}";
+            var lon = "{{ lon }}";
             if (lat == 37.4419) {
                 var theZoom = 5;
             } else {
@@ -58,6 +58,14 @@
             };
             var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
         }
+    </script>
+
+    <script type="text/javascript">
+        openvote.reverse_geocode = $.ajax({
+                url: 'http://maps.googleapis.com/maps/api/geocode/json?latlng={{ lat }},{{ lon }}&sensor=false',
+                success: function get_data(data) {console.log(data);},
+                dataType: 'json'
+        });
     </script>
     
 </head>

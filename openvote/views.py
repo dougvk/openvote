@@ -27,6 +27,7 @@ def home(request):
         social_user = UserSocialAuth.get_social_auth_for_user(user)[0]
         voter = _create_or_get_voter(social_user, lat, lon)
 
+    lat, lon = str(lat), str(lon)
     # Grab the relevant voter
     voter_json = {}
     if voter is not None:
