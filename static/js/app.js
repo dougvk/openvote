@@ -8,7 +8,7 @@ angular.module('openvote', ['openvoteServices']).
         $routeProvider
             .when('/', {templateUrl:'/static/templates/welcome.html'})
 
-            .when('/contests', {controller:ContestsCtrl, templateUrl:'/static/templates/contests.html'})
+            .when('/contests', {controller:ContestListCtrl, templateUrl:'/static/templates/contests.html'})
             .when('/contest/new', {controller:AddContestCtrl, templateUrl:'/static/templates/contest_edit.html'})
             .when('/contest/edit/:contestId', {controller:ContestCtrl, templateUrl:'/static/templates/contest_edit.html'})
             .when('/contest/:contestId', {controller:ContestCtrl, templateUrl:'/static/templates/contest.html'})

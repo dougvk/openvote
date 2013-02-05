@@ -1,9 +1,8 @@
 function AppCtrl($scope, Vote, CivicElections) {
     $scope.voter = window.openvote.voter_json;
 
-    //$scope.elections = window.openvote.app_json;
-    CivicElections.get({},function (elections) {
-        $scope.elections = elections.elections;
+    CivicElections.get({}, function success(data) {
+        $scope.contests = data.elections;
     });
 
     $scope.contests_voted = function () {
@@ -53,18 +52,18 @@ ContestsCtrl.$inject = ['$scope'];
 function AddContestCtrl($scope) {}
 AddContestCtrl.$inject = ['$scope'];
 
-function ContestListCtrl($scope, $location, $routeParams, Contests) {
+function ContestListCtrl($scope, $location, $routeParams, Contest) {
     var electionId = $routeParams.electionId;
-    Contests.get({electionId: electionId}, {"address": "410 Market St, Chapel Hill, NC"}, function (contests) {
+    Contest.get({electionId: electionId}, {"address": "410 Market St, Chapel Hill, NC"}, function (contests) {
         openvote.contests = contests;
         $scope.contests = contests;
     });
 }
-ContestListCtrl.$inject = ['$scope', '$location', '$routeParams', 'CivicVoterQuery'];
+ContestListCtrl.$inject = ['$scope', '$location', '$routeParams', 'Contest'];
 
 function ContestCtrl($scope, $location, $routeParams, Contest) {
     if ($scope.current_contest.id !== $routeParams.contestId) {
-        $scope.current_contest = $scope.contest[$routeParams.contestId];
+        $scope.current_contest = $scopes.contest[$routeParams.contestId];
     }
 
     $scope.reset = function () {

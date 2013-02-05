@@ -27,10 +27,10 @@ angular.module('openvoteServices', ['ngResource'])
     })
     .factory('CivicElections', function($resource) {
         return $resource('https://www.googleapis.com/civicinfo/us_v1/elections', {}, {
-            get: {method: 'GET', params: {key: openvote.civic_api_key}}
+            get: {method: 'JSONP', params: {key: openvote.civic_api_key, callback: 'JSON_CALLBACK'}}
         });
     })
-    .factory('CivicVoterQuery', function($resource) {
+    .factory('Contest', function($resource) {
         return $resource('https://www.googleapis.com/civicinfo/us_v1/voterinfo/:electionId/lookup', {}, {
             get: {method: 'POST', params: {key: openvote.civic_api_key}}
         });
