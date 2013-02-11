@@ -9,7 +9,7 @@ class Election(models.Model):
     admin = models.ForeignKey(Voter)
 
     votercount = models.PositiveIntegerField()
-    election_day = models.DateField()
+    contest_day = models.DateField()
     #avglat = models.DecimalField(max_digits=7, decimal_places=4)
     #avglon = models.DecimalField(max_digits=7, decimal_places=4)
 

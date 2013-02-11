@@ -52,18 +52,9 @@ ContestsCtrl.$inject = ['$scope'];
 function AddContestCtrl($scope) {}
 AddContestCtrl.$inject = ['$scope'];
 
-function ContestListCtrl($scope, $location, $routeParams, Contest) {
-    var electionId = $routeParams.electionId;
-    Contest.get({electionId: electionId}, {"address": "410 Market St, Chapel Hill, NC"}, function (contests) {
-        openvote.contests = contests;
-        $scope.contests = contests;
-    });
-}
-ContestListCtrl.$inject = ['$scope', '$location', '$routeParams', 'Contest'];
-
 function ContestCtrl($scope, $location, $routeParams, Contest) {
     if ($scope.current_contest.id !== $routeParams.contestId) {
-        $scope.current_contest = $scopes.contest[$routeParams.contestId];
+        $scope.current_contest = $scope.contests[$routeParams.contestId];
     }
 
     $scope.reset = function () {
@@ -86,11 +77,11 @@ function ContestCtrl($scope, $location, $routeParams, Contest) {
                 "votercount": contest.votercount,
                 "admin": contest.admin
         };
-        Contest.update({contestId: contestId}, update_json,
-            function () {
-                _.extend($scope.contests[contestId], update_json);
-            }
-        );
+        Contest.update({contestId: contestId}, update_json);
+            //function () {
+                //_.extend($scope.contests[contestId], update_json);
+            //}
+        //);
     };
 
     $scope.destroy = function () {
