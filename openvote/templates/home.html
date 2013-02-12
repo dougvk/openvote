@@ -21,18 +21,17 @@
         openvote.civic_api_key = '{{civic_api_key}}';
     </script>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/jquery.cookie.js' %}"></script>
 	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 
     <!-- Angular -->
-    <script src="//cdn.jsdelivr.net/angularjs/1.1.2/angular.js"></script>
-    <script src="//cdn.jsdelivr.net/angularjs/1.1.2/angular-resource.js"></script>
-    <script src="http://documentcloud.github.com/underscore/underscore.js"></script>
+    <script src="{% static 'js/angular.js' %}"></script>
+    <script src="{% static 'js/angular-resource.js' %}"></script>
+    <script src="{% static 'js/underscore.js' %}"></script>
     <script src="{% static 'js/controllers.js' %}"></script>
     <script src="{% static 'js/services.js' %}"></script>
     <script src="{% static 'js/app.js' %}"></script>
-    <!-- <script src="{% static 'js/openvote_django_api.js' %}"></script> -->
 
     <!-- HTML5 shim for IE6-8 -->
     <!--[if lt IE 9]>
