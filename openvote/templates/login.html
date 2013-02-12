@@ -1,5 +1,0 @@
-{% load url from future %}
-
-{% for name in backend %}
-    <a rel="nofollow" href="{% url "socialauth_begin" name %}">{{ name|title }}</a></br>
-{% endfor %}
