@@ -33,7 +33,7 @@ angular.module('openvoteServices', ['ngResource'])
         });
     })
     .factory('CivicVoterQuery', function($resource) {
-        return $resource('https://www.googleapis.com/civicinfo/us_v1/voterinfo/:electionId/lookup', {}, {
+        return $resource('https://www.googleapis.com/civicinfo/us_v1/voterinfo/:contestId/lookup', {}, {
             get: {method: 'POST', params: {key: openvote.civic_api_key}}
         });
     });

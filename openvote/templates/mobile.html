@@ -1,0 +1,54 @@
+    <div class="visible-phone">
+
+        <div style="position: absolute; margin-top: -30px; margin-left: 8px; z-index: 1;">
+            <a href="/"><img src="{% static 'g/ovlogo100.png' %}" height='85' width='85' alt="OpenVote.US"></img></a>
+        </div>
+
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="container">
+
+                <div ng-controller="VoterCtrl">
+                    {% if user.is_authenticated %}
+                        <div class="nav votercontrols">
+                            <a href="/profile"><[ voter.nickname ]></a>
+                        </div>
+                        <a style="float: right;" target="_self" href="{% url "logout" %}" class="btn btn-small">Sign out</a>
+                    {% else %}
+                        <div class="nav votercontrols">
+                            <a data-toggle="modal" href="#signinModal">Welcome</a>
+                        </div>
+                        <a style="float: right;" data-toggle="modal" href="#signinModal" class="btn btn-primary btn-small"><i class="icon-user icon-white"></i> Sign in</a>
+                    {% endif %}
+                </div>
+                <span style="float: right; margin-right: 6px;">
+                    <a class="btn btn-small" data-toggle="collapse" data-target=".nav-collapse"><i class="icon-list"></i> Menu</a>
+                </span>
+  
+                <!-- collapsed navbar content opens the same nav template as the desktop view -->
+                <div class="nav-collapse">
+                    <div style="margin-top: 22px;"/></div>
+                    {% include 'openvote/templates/nav.html' %}
+                </div>
+         
+            </div>
+          </div>
+        </div>    
+
+        <div class="box">
+            <div ng-view></div>
+        </div>
+        <br/><br/<br/>
+        <hr/>
+        <div class="box">{% include 'openvote/templates/footer.html' %}</div>
+
+    </div>
+
+    
+    
+    
+    
+    
+
+
+

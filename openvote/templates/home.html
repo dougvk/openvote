@@ -24,6 +24,8 @@
 	<script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/jquery.cookie.js' %}"></script>
 	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.mockjax.js' %}"></script>
+    <script src="{% static 'js/mock.js' %}"></script>
 
     <!-- Angular -->
     <script src="{% static 'js/angular.js' %}"></script>
@@ -39,7 +41,7 @@
     <![endif]-->
 
 	<!-- Google Maps --> 
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCy9qqGNDbHN_gtdFvQ6W25ydBD3D6scqk&sensor=false"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA8pj8xLQndywRrJm0Ahk0-H4z8QgEaO_4&sensor=false"></script>
     <script type="text/javascript">
         function locate() {
             var lat = "{{ lat }}";
@@ -59,12 +61,15 @@
         }
     </script>
 
-    <script type="text/javascript">
-        openvote.reverse_geocode = $.ajax({
-                url: 'http://maps.googleapis.com/maps/api/geocode/json?latlng={{ lat }},{{ lon }}&sensor=false',
-                success: function get_data(data) {console.log(data);},
-                dataType: 'json'
+    <script>
+        $.getJSON('/maps/api/geocode', function(response) {
+            openvote.reverse_geocode = response;
         });
+//        openvote.reverse_geocode = $.ajax({
+//                url: 'http://maps.googleapis.com/maps/api/geocode/json?latlng={{ lat }},{{ lon }}&sensor=false',
+//                success: function get_data(data) {console.log(data);},
+//                dataType: 'json'
+//        });
     </script>
     
 </head>
@@ -104,70 +109,13 @@
                     </div>
                 </div>
                 <div class="span9">
-                    <div class="box"><div ng-view></div></div>
+                    <div class="box ng-view"></div>
                     <br/>
                     <br/>
                 </div>
             </div>
         </div>
-
     </div>
-
-
-
-    <div class="visible-phone">
-
-        <div style="position: absolute; margin-top: -30px; margin-left: 8px; z-index: 1;">
-            <a href="/"><img src="{% static 'g/ovlogo100.png' %}" height='85' width='85' alt="OpenVote.US"></img></a>
-        </div>
-
-        <div class="navbar">
-          <div class="navbar-inner">
-            <div class="container">
-
-                <div ng-controller="VoterCtrl">
-                    {% if user.is_authenticated %}
-                        <div class="nav votercontrols">
-                            <a href="/profile"><[ voter.nickname ]></a>
-                        </div>
-                        <a style="float: right;" target="_self" href="{% url "logout" %}" class="btn btn-small">Sign out</a>
-                    {% else %}
-                        <div class="nav votercontrols">
-                            <a data-toggle="modal" href="#signinModal">Welcome</a>
-                        </div>
-                        <a style="float: right;" data-toggle="modal" href="#signinModal" class="btn btn-primary btn-small"><i class="icon-user icon-white"></i> Sign in</a>
-                    {% endif %}
-                </div>
-                <span style="float: right; margin-right: 6px;">
-                    <a class="btn btn-small" data-toggle="collapse" data-target=".nav-collapse"><i class="icon-list"></i> Menu</a>
-                </span>
-  
-                <!-- collapsed navbar content opens the same nav template as the desktop view -->
-                <div class="nav-collapse">
-                    <div style="margin-top: 22px;"/></div>
-                    {% include 'openvote/templates/nav.html' %}
-                </div>
-         
-            </div>
-          </div>
-        </div>    
-
-        <div class="box">
-            <div ng-view></div>
-        </div>
-        <br/><br/<br/>
-        <hr/>
-        <div class="box">{% include 'openvote/templates/footer.html' %}</div>
-
-    </div>
-
-    
-    
-    
-    
-    
-
-
 
     <script defer>
         (function() {

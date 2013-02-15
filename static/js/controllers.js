@@ -3,6 +3,7 @@ function AppCtrl($scope, Vote, CivicElections) {
 
     CivicElections.get({}, function success(data) {
         $scope.contests = data.elections;
+        console.log(data);
     });
 
     $scope.contests_voted = function () {
@@ -49,13 +50,26 @@ AppCtrl.$inject = ['$scope', 'Vote', 'CivicElections'];
 function ContestsCtrl($scope) {}
 ContestsCtrl.$inject = ['$scope'];
 
-function AddContestCtrl($scope) {}
-AddContestCtrl.$inject = ['$scope'];
+function ContestCtrl($scope, $location, $routeParams, Contest, CivicVoterQuery) {
+    // TODO: if user navigates, this won't work
+    //if ($scope.current_contest.id !== $routeParams.contestId) {
+        //$scope.current_contest = $scope.contests[$routeParams.contestId];
+    //}
 
-function ContestCtrl($scope, $location, $routeParams, Contest) {
-    if ($scope.current_contest.id !== $routeParams.contestId) {
-        $scope.current_contest = $scope.contests[$routeParams.contestId];
-    }
+    CivicVoterQuery.get(
+        {
+            contestId: $scope.current_contest.id
+        },
+        {
+            address: openvote.reverse_geocode.results[0].formatted_address
+        },
+        function success(data) {
+            console.log(data);
+        },
+        function error(data) {
+            debugger;
+        }
+    );
 
     $scope.reset = function () {
         var contestId = $routeParams.contestId;
@@ -93,7 +107,7 @@ function ContestCtrl($scope, $location, $routeParams, Contest) {
         );
     };
 }
-ContestCtrl.$inject = ['$scope', '$location', '$routeParams', 'Contest'];
+ContestCtrl.$inject = ['$scope', '$location', '$routeParams', 'Contest', 'CivicVoterQuery'];
 
 function CandidateCtrl($scope, $location, $routeParams, Candidate) {
     if ($scope.current_candidate.id !== $routeParams.candidateId) {

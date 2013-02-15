@@ -9,14 +9,12 @@
       <tr>
         <th>Election</th>
         <th>Description</th>
-        <th><a href="/contest/new"><i class="icon-plus-sign"></i></a></th>
       </tr>
       </thead>
       <tbody>
       <tr ng-repeat="contest in contests | filter:search | orderBy:'name'">
         <td><a href="/contest/<[contest.id]>" ng-click="updateContest(contest)"><[contest.name]></a></td>
         <td><[contest.desc]></td>
-        <td><a href="/contest/edit/<[contest.id]>" ng-click="updateContest(contest)"><i class="icon-pencil"></i></a></td>
       </tr>
       </tbody>
     </table>

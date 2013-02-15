@@ -8,11 +8,11 @@ angular.module('openvote', ['openvoteServices']).
         $routeProvider
             .when('/', {templateUrl:'/static/templates/welcome.html'})
 
-            .when('/contest/list', {controller:ContestsCtrl, templateUrl:'/static/templates/contests.html'})
-            .when('/contest/new', {controller:AddContestCtrl, templateUrl:'/static/templates/contest_edit.html'})
-            .when('/contest/edit/:contestId', {controller:ContestCtrl, templateUrl:'/static/templates/contest_edit.html'})
-            .when('/contest/:contestId', {controller:ContestCtrl, templateUrl:'/static/templates/contest.html'})
-            .when('/contest/:contestId/candidate/:candidateId', {controller:CandidateCtrl, templateUrl:'/static/templates/candidate.html'})
+            //.when('/contest/list', {templateUrl:'/static/templates/contests.html'})
+            //.when('/contest/new', {controller:AddContestCtrl, templateUrl:'/static/templates/contest_edit.html'})
+            //.when('/contest/edit/:contestId', {templateUrl:'/static/templates/contest_edit.html'})
+            .when('/contest/:contestId', {templateUrl:'/static/templates/contest.html'})
+            .when('/contest/:contestId/candidate/:candidateId', {templateUrl:'/static/templates/candidate.html'})
 
             .when('/about', {templateUrl:'/static/templates/about.html'})
             .when('/help', {templateUrl:'/static/templates/help.html'})

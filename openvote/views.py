@@ -1,6 +1,4 @@
 import json
-import os
-import pkgutil
 import urllib2
 
 from django.core.urlresolvers import reverse
@@ -19,8 +17,9 @@ from rest.serialize import JSONSerializer
 # Views
 def home(request):
     jsonSerializer = JSONSerializer()
-    client_ip = _get_client_ip(request)
-    lat, lon = _get_client_location(client_ip)
+    #client_ip = _get_client_ip(request)
+    #lat, lon = _get_client_location(client_ip)
+    lat, lon = float(37), float(-94)
     user = request.user
     voter = None
     if user.is_authenticated():
@@ -75,8 +74,7 @@ def _get_client_location(ip):
     u.close()
     lat = 37.4419 if decoded['latitude'] == "0" else decoded['latitude']
     lon = -94.1419 if decoded['longitude'] == "0" else decoded['longitude']
-    return 37, -94
-    #return float(lat), float(lon)
+    return float(lat), float(lon)
 
 # TODO: Commit on success
 def _create_or_get_voter(user, lat, lon):
