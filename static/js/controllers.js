@@ -2,7 +2,7 @@ function AppCtrl($scope, Vote, CivicElections) {
     $scope.voter = window.openvote.voter_json;
 
     CivicElections.get({}, function success(data) {
-        $scope.contests = data.elections;
+        $scope.elections = data.elections;
         console.log(data);
     });
 
@@ -18,8 +18,8 @@ function AppCtrl($scope, Vote, CivicElections) {
         $scope.current_candidate = candidate;
     };
 
-    $scope.updateContest = function(contest) {
-        $scope.current_contest = contest;
+    $scope.updateElection = function(election) {
+        $scope.current_election = election;
     };
 
     $scope.vote = function(candidate) {
@@ -50,26 +50,13 @@ AppCtrl.$inject = ['$scope', 'Vote', 'CivicElections'];
 function ContestsCtrl($scope) {}
 ContestsCtrl.$inject = ['$scope'];
 
-function ContestCtrl($scope, $location, $routeParams, Contest, CivicVoterQuery) {
-    // TODO: if user navigates, this won't work
-    //if ($scope.current_contest.id !== $routeParams.contestId) {
-        //$scope.current_contest = $scope.contests[$routeParams.contestId];
-    //}
+function ContestCtrl($scope, $location, $routeParams, Contest, CivicVoterQuery, info) {
+    //TODO: Figure out how to get election by ID
+    if (info.contests !== undefined) {
+        $scope.contests = info.contests;
+        $scope.current_contest = $scope.contests[0];
+    }
 
-    CivicVoterQuery.get(
-        {
-            contestId: $scope.current_contest.id
-        },
-        {
-            address: openvote.reverse_geocode.results[0].formatted_address
-        },
-        function success(data) {
-            console.log(data);
-        },
-        function error(data) {
-            debugger;
-        }
-    );
 
     $scope.reset = function () {
         var contestId = $routeParams.contestId;
@@ -107,7 +94,52 @@ function ContestCtrl($scope, $location, $routeParams, Contest, CivicVoterQuery) 
         );
     };
 }
-ContestCtrl.$inject = ['$scope', '$location', '$routeParams', 'Contest', 'CivicVoterQuery'];
+ContestCtrl.$inject = ['$scope', '$location', '$routeParams', 'Contest', 'CivicVoterQuery', 'info'];
+
+ContestCtrl.resolve = {
+    info: ['$route', '$q', 'CivicVoterQuery', function($route, $q, CivicVoterQuery) {
+        var deferred = $q.defer();
+
+        if (openvote.address === undefined) {
+            $.getJSON('/maps/api/geocode', function(data) {
+                openvote.address = data.results[0].formatted_address;
+                CivicVoterQuery.get(
+                    {
+                        electionId: $route.current.params.electionId
+                    },
+                    {
+                        address: openvote.address
+                    },
+                    function success(data) {
+                        deferred.resolve(data);
+                        console.log(data);
+                    },
+                    function error(data) {
+                        debugger;
+                    }
+                );
+            });
+        } else {
+            CivicVoterQuery.get(
+                {
+                    electionId: $route.current.params.electionId
+                },
+                {
+                    address: openvote.address
+                },
+                function success(data) {
+                    deferred.resolve(data);
+                    console.log(data);
+                },
+                function error(data) {
+                    debugger;
+                }
+            );
+        }
+
+        return deferred.promise;
+    }]
+};
 
 function CandidateCtrl($scope, $location, $routeParams, Candidate) {
     if ($scope.current_candidate.id !== $routeParams.candidateId) {

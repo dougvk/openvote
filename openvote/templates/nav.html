@@ -6,9 +6,9 @@
 
     <!--<h3 class="nav"><a href="/election/list" data-toggle="collapse" data-target=".nav-collapse">Election List</a></h3>-->
     <ul class="unstyled">
-        <li ng-repeat="contest in contests">
+        <li ng-repeat="election in elections">
             <div class="nav-election">
-                <a href="/contest/<[contest.id]>" data-toggle="collapse" data-target=".nav-collapse" ng-click="updateContest(contest)"><[contest.name]></a>
+                <a href="/election/<[election.id]>" data-toggle="collapse" data-target=".nav-collapse" ng-click="updateElection(election)"><[election.name]></a>
                 <!--<div ng-repeat="candidate in election.candidates">-->
                     <!--<div class="nav-candidate">-->
                         <!--<input class="vote" type="checkbox" ng-model="candidate.approved" ng-click="vote(candidate)">-->

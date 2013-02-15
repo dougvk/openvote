@@ -29,6 +29,7 @@ urlpatterns += patterns('',
     url(r'^contests',   'openvote.views.home', name='home'),
     url(r'^contest',    'openvote.views.home', name='home'),
     url(r'^candidate',  'openvote.views.home', name='home'),
+    url(r'^election',   'openvote.views.home', name='home'),
 
     url(r'^about$',     'openvote.views.home', name='home'),
     url(r'^help$',      'openvote.views.home', name='home'),

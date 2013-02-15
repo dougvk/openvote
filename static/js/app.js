@@ -11,7 +11,7 @@ angular.module('openvote', ['openvoteServices']).
             //.when('/contest/list', {templateUrl:'/static/templates/contests.html'})
             //.when('/contest/new', {controller:AddContestCtrl, templateUrl:'/static/templates/contest_edit.html'})
             //.when('/contest/edit/:contestId', {templateUrl:'/static/templates/contest_edit.html'})
-            .when('/contest/:contestId', {templateUrl:'/static/templates/contest.html'})
+            .when('/election/:electionId', {resolve: ContestCtrl.resolve, controller: ContestCtrl, templateUrl:'/static/templates/contest.html'})
             .when('/contest/:contestId/candidate/:candidateId', {templateUrl:'/static/templates/candidate.html'})
 
             .when('/about', {templateUrl:'/static/templates/about.html'})

@@ -19,6 +19,8 @@
         var openvote = openvote || {}
         openvote.voter_json = {{voter_json}};
         openvote.civic_api_key = '{{civic_api_key}}';
+        openvote.lat = '{{ lat }}';
+        openvote.lon = '{{ lon }}';
     </script>
 
 	<script src="{% static 'js/jquery.min.js' %}"></script>
@@ -31,9 +33,9 @@
     <script src="{% static 'js/angular.js' %}"></script>
     <script src="{% static 'js/angular-resource.js' %}"></script>
     <script src="{% static 'js/underscore.js' %}"></script>
-    <script src="{% static 'js/controllers.js' %}"></script>
     <script src="{% static 'js/services.js' %}"></script>
     <script src="{% static 'js/app.js' %}"></script>
+    <script src="{% static 'js/controllers.js' %}"></script>
 
     <!-- HTML5 shim for IE6-8 -->
     <!--[if lt IE 9]>
@@ -44,8 +46,8 @@
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA8pj8xLQndywRrJm0Ahk0-H4z8QgEaO_4&sensor=false"></script>
     <script type="text/javascript">
         function locate() {
-            var lat = "{{ lat }}";
-            var lon = "{{ lon }}";
+            var lat = openvote.lat;
+            var lon = openvote.lon;
             if (lat == 37.4419) {
                 var theZoom = 5;
             } else {
@@ -62,9 +64,9 @@
     </script>
 
     <script>
-        $.getJSON('/maps/api/geocode', function(response) {
-            openvote.reverse_geocode = response;
-        });
+        <!--$.getJSON('/maps/api/geocode', function(response) {-->
+            <!--openvote.reverse_geocode = response;-->
+        <!--});-->
 //        openvote.reverse_geocode = $.ajax({
 //                url: 'http://maps.googleapis.com/maps/api/geocode/json?latlng={{ lat }},{{ lon }}&sensor=false',
 //                success: function get_data(data) {console.log(data);},
